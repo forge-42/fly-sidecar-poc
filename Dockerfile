@@ -1,22 +1,37 @@
-FROM node:20-alpine AS development-dependencies-env
+ARG NODE_VERSION=22.19.0
+FROM node:${NODE_VERSION}-alpine AS base
+ARG PNPM_VERSION=10.15.1
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable pnpm && corepack install -g pnpm@$PNPM_VERSION
+
+
+FROM base AS development-env
 COPY . /app
 WORKDIR /app
-RUN npm ci
+RUN pnpm install --frozen-lockfile
 
-FROM node:20-alpine AS production-dependencies-env
-COPY ./package.json package-lock.json /app/
+
+FROM base AS production-env
+COPY ./package.json pnpm-lock.yaml pnpm-workspace.yaml /app/
 WORKDIR /app
-RUN npm ci --omit=dev
+RUN pnpm install --frozen-lockfile --prod
 
-FROM node:20-alpine AS build-env
+
+FROM base AS build-env
 COPY . /app/
-COPY --from=development-dependencies-env /app/node_modules /app/node_modules
+COPY --from=development-env /app/node_modules /app/node_modules
 WORKDIR /app
-RUN npm run build
+RUN pnpm run build
 
-FROM node:20-alpine
-COPY ./package.json package-lock.json /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
+
+FROM base
+COPY ./package.json pnpm-lock.yaml pnpm-workspace.yaml /app/
+COPY --from=production-env /app/node_modules /app/node_modules
 COPY --from=build-env /app/build /app/build
 WORKDIR /app
-CMD ["npm", "run", "start"]
+
+ENV PORT="8080"
+EXPOSE $PORT
+
+CMD ["pnpm", "run", "start"]
