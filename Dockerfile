@@ -31,7 +31,7 @@ COPY --from=production-env /app/node_modules /app/node_modules
 COPY --from=build-env /app/build /app/build
 WORKDIR /app
 
-ENV PORT="8080"
-EXPOSE $PORT
+ENV PORT=80
+EXPOSE 80 
 
 CMD ["pnpm", "run", "start"]
