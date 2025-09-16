@@ -1,5 +1,5 @@
 {
-  "name": "stack-42",
+  "name": "fly-sidecar-poc",
   "private": true,
   "type": "module",
   "scripts": {
