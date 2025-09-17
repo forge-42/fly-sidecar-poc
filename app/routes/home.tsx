@@ -8,8 +8,12 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export function loader() {
-  console.dir({ env: process.env })
+export function loader({ request }: Route.LoaderArgs) {
+  let headersObj: { [key: string]: any } = {}
+  for (const [key, value] of request.headers) {
+    headersObj[key] = value;
+  }
+  console.dir(headersObj);
   return {}
 }
 
