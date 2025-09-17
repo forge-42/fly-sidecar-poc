@@ -11,13 +11,13 @@
       ],
       "depends_on": [
         {
-          "name": "echo",
+          "name": "myapp",
           "condition": "healthy"
         }
       ]
     },
     {
-      "name": "echo",
+      "name": "myapp",
       "image": "ealen/echo-server",
       "healthchecks": [
         {
