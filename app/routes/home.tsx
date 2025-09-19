@@ -8,12 +8,12 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export function loader({ request }: Route.LoaderArgs) {
-  let headersObj: { [key: string]: any } = {}
+export function loader({ request, context }: Route.LoaderArgs) {
+  let headers: { [key: string]: any } = {}
   for (const [key, value] of request.headers) {
-    headersObj[key] = value;
+    headers[key] = value;
   }
-  console.dir(headersObj);
+  console.dir({ headers, url: request.url, method: request.method, context });
   return {}
 }
 
