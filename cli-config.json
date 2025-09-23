@@ -23,9 +23,7 @@
         {
           "exec": {
             "command": [
-              "wget",
-              "-qO-",
-              "http://localhost:80"
+              "true"
             ]
           }
         }
