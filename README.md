@@ -1,6 +1,6 @@
 # fly-sidecar-poc
 
-This repository, specifically the `cli-config.json`, `fly.toml`, and `nginx.conf`, demonstrates the multi-container deployment functionality on fly.io. You can also refer to the official [fly.io Multi-Container deployment documentation](https://fly.io/docs/machines/guides-examples/multi-container-machines/). Unfortunately, the `fly.toml` appears to be incorrect and did not function as documented. However, the `fly.toml` in this repository does work.
+This repository, specifically the files `cli-config.json`, `fly.toml`, and `nginx.conf`, demonstrates how to use the multi-container deployment functionality on fly.io. You can also refer to the official [fly.io Multi-Container deployment documentation](https://fly.io/docs/machines/guides-examples/multi-container-machines/). Unfortunately, the `fly.toml` appears to be incorrect and did not function as documented. However, the `fly.toml` in this repository does work.
 
 This PoC is deployed at <https://fly-sidecar-poc.fly.dev/> and the custom domain <https://fly-sidecar-poc.forge42.dev/> points to it. You will receive a successful response only by visiting the custom domain. If you access the app directly on `fly.dev`, you will encounter a 403 error.
 
