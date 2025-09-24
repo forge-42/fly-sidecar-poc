@@ -27,6 +27,29 @@ This repository demonstrates how to deploy a multi-container app on [fly.io](htt
 3. The [`Fly-Client-Ip`](https://www.fly.io/docs/networking/request-headers/#fly-client-ip) header must match Cloudflare’s [IPv4](https://www.cloudflare.com/ips-v4) or [IPv6](https://cloudflare.com/ips-v6) ranges.
 4. If both checks pass, the request is proxied to the app on `localhost:80`.
 
+**Trying to spoof the headers to get access and bypass Cloudflare:**
+
+I am using the [`xh`](https://github.com/ducaale/xh) cli tool to make requests in this example:
+
+```sh
+## Lets try to manually send the Cf-Connecting-Ip header Cloudflare is adding and/or setting X-Forwarded-For header:
+➜ xh --headers GET https://fly-sidecar-poc.fly.dev/ "Cf-Connecting-Ip: 1.2.3.4" "X-Forwarded-For: 2.3.4.5"
+HTTP/2.0 403 Forbidden
+content-encoding: zstd
+content-type: text/html
+date: Wed, 24 Sep 2025 14:19:22 GMT
+fly-request-id: 01K5Y1FQBBQ90R0K7GESSHG15P-fra
+server: Fly/90a8089aa (2025-09-23)
+via: 2 fly.io
+x-fly-cip: cip:abcd:1234:5678:ef00:abcd:1234:5678:abcd
+x-is-cf-client: is_cloudflare_client:0
+x-is-fly-proxy: is_fly_proxy:1
+x-ra: 1.2.3.4
+x-realip-ra: 172.16.22.162
+x-sidecar-response: true
+x-valid-origins: V:0
+```
+
 ## Rate Limiting
 
 If you send requests too quickly, you'll receive a `503 Service Temporarily Unavailable` error.
