@@ -14,6 +14,12 @@
           "name": "myapp",
           "condition": "healthy"
         }
+      ],
+      "mounts": [
+        {
+          "name": "myshareddir",
+          "path": "/my-shared-dir"
+        }
       ]
     },
     {
@@ -27,7 +33,18 @@
             ]
           }
         }
+      ],
+      "mounts": [
+        {
+          "name": "myshareddir",
+          "path": "/my-shared-dir"
+        }
       ]
+    }
+  ],
+  "volumes": [
+    {
+      "name": "myshareddir"
     }
   ]
 }

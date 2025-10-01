@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
 import { Welcome } from "../welcome/welcome";
+import { Link } from "react-router";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -18,5 +19,9 @@ export function loader({ request, context }: Route.LoaderArgs) {
 }
 
 export default function Home() {
-  return <Welcome />;
+  return <>
+    <Welcome />
+    <Link to="/shared-file-myapp">Write timestamp to the Shared File from 'myapp' container</Link><br />
+    <a href="/shared-file-nginx">Show File Contents of Shared File directly by Nginx Container</a><br />
+  </>;
 }

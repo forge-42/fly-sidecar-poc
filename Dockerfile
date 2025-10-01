@@ -34,4 +34,6 @@ WORKDIR /app
 ENV PORT=80
 EXPOSE 80 
 
+ENV MY_SHARED_FILE=/my-shared-dir/shared.txt
+
 CMD ["pnpm", "run", "start"]
