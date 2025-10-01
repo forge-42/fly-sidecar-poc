@@ -7,6 +7,7 @@ This repository demonstrates how to deploy a multi-container app on [fly.io](htt
 
 - **Requests are routed through Cloudflare**
 - **Requests are rate limited**
+- Read and Write to a file on a shared directory on the host machine. This could also be a persistent volume. In this example its just a mount on the host machine.
 
 ## Cloudflare Origin Protection
 
@@ -55,6 +56,10 @@ x-valid-origins: V:0
 If you send requests too quickly, you'll receive a `503 Service Temporarily Unavailable` error.
 
 The current setup is minimal: nginx realip modules uses the `Cf-Connecting-Ip` header to set `$remote_addr`, so rate limiting applies to the real client IP as seen by Cloudflare - not just to fly-proxy or Cloudflare as a whole. You can easily enhance this configuration by adding connection limits, burst and delay controls, or other traffic shaping options for more advanced rate limiting.
+
+## Shared Host Directory
+
+On both containers, the `/my-shared-dir` directory is mounted to a shared directory on the host machine. This allows both containers to read and write files in this directory. Even though its necessary to specify a `"volume"` configuration object with just the `"name"` property in the `cli-config.json`, its not an actual persistent fly volume. It seems this behavior is currently not documented in the fly.io docs.
 
 ## Quick Start
 
