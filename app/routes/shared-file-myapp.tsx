@@ -1,5 +1,5 @@
 import fs from "node:fs/promises"
-import type { Route } from "./+types/access-shared-file"
+import type { Route } from "./+types/shared-file-myapp"
 import { Link } from "react-router"
 
 
@@ -13,19 +13,22 @@ export async function loader() {
   await handle.close()
   const fileContents = await fs.readFile(sharedFile, "utf-8")
   console.log("Writing to shared file", { sharedFile, nowInMilliseconds })
+  const flyMachineId = process.env.FLY_MACHINE_ID
   return {
     sharedFile,
     nowInMilliseconds,
     fileContents,
+    flyMachineId,
   }
 }
 
 export default function Foo({ loaderData }: Route.ComponentProps) {
-  const { sharedFile, nowInMilliseconds, fileContents } = loaderData
+  const { sharedFile, nowInMilliseconds, fileContents, flyMachineId } = loaderData
   return (
     <>
       <Link to="/">Home</Link><br />
-      <h1>Writing '{nowInMilliseconds}' to '{sharedFile}'</h1>
+      <h1>Writing '{nowInMilliseconds}' to '{sharedFile}' on '{flyMachineId ?? 'Not running on Fly.io'}'</h1>
+
       <h2>File Contents of '{sharedFile}':</h2>
       <pre>{fileContents}</pre>
     </>
