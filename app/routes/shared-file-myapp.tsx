@@ -28,6 +28,7 @@ export default function Foo({ loaderData }: Route.ComponentProps) {
     <>
       <Link to="/">Home</Link><br />
       <h1>Writing '{nowInMilliseconds}' to '{sharedFile}' on '{flyMachineId ?? 'Not running on Fly.io'}'</h1>
+      <a className="text-blue-700 hover:underline dark:text-blue-500" href="/shared-file-nginx">Show File Contents of Shared File directly by Nginx Container</a><br />
 
       <h2>File Contents of '{sharedFile}':</h2>
       <pre>{fileContents}</pre>
