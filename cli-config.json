@@ -24,12 +24,13 @@
     },
     {
       "name": "myapp",
-      "image": "ealen/echo-server",
       "healthchecks": [
         {
           "exec": {
             "command": [
-              "true"
+              "wget",
+              "-qO-",
+              "http://localhost:3000/__health"
             ]
           }
         }

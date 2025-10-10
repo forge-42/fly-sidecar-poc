@@ -31,8 +31,8 @@ COPY --from=production-env /app/node_modules /app/node_modules
 COPY --from=build-env /app/build /app/build
 WORKDIR /app
 
-ENV PORT=80
-EXPOSE 80 
+ENV PORT=3000
+EXPOSE 3000 
 
 ENV MY_SHARED_FILE=/my-shared-dir/shared.txt
 
